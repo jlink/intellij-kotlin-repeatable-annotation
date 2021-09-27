@@ -11,15 +11,11 @@ repositories {
 
 dependencies {
     implementation("com.google.code.findbugs:jsr305:3.0.2")
-    //compileOnly("com.google.code.findbugs:jsr305:3.0.2")
 }
 
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
-        freeCompilerArgs = listOf(
-            "-Xjsr305=strict", // For strict type warnings
-		)
         jvmTarget = "1.8"
     }
 }
