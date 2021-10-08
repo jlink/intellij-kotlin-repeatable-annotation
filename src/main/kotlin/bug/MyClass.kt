@@ -1,14 +1,14 @@
 package bug
 
 import annotations.Size
+import kotlin.reflect.KFunction
+import kotlin.reflect.jvm.kotlinFunction
 
 fun main() {
 
-    val method = MyClass::class.java.getMethod("aFunction", String::class.java)
-    val firstParameter = method.parameters[0]
-    val kParameter = firstParameter.kotlinParameter()
-
-    val sizeAnnotation : Size = kParameter?.type?.annotations?.get(0) as Size
+    val function: KFunction<*> = MyClass::class.java.getMethod("aFunction", String::class.java).kotlinFunction!!
+    val firstArgParameter = function.parameters[1]!!
+    val sizeAnnotation: Size = firstArgParameter.type?.annotations?.get(0) as Size
 
     // Should print 0 but throws:
     // KotlinReflectionInternalError: Method is not supported: public abstract int tagging.Size.min() (args: [])
